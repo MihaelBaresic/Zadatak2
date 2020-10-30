@@ -26,6 +26,7 @@ void insertBefore(Position, Position);
 void Sort(Position);
 int createNode(char*, char*, int);
 void insertList(char*, Position);
+int countRows(char*);
 
 int main(void)
 {
@@ -56,7 +57,7 @@ int main(void)
 		printf("\n\nMENU:\nChoose one option:\n\tB->insert new person at the beginning of the list\n");
 		printf("\tA->insert new person at the end of the list\n\tF->find a person(by last name)\n\tD->delete a person\n\tC->Input list to text file");
 		printf("\n\tI->insert new person after selected person\n\tU->insert new person before selected person\n\tS->Sort List(by last names)\n");
-		printf("\tE->if you are done with the selection\n\tOption:\t");
+		printf("\tR->Read list from file\n\tE->if you are done with the selection\n\tOption:\t");
 		scanf(" %c", &c);
 
 		switch (c)
@@ -77,6 +78,24 @@ int main(void)
 			puts("\n");
 			printList(&head);
 			break;
+		case'r':
+		case'R':
+			printf("Insert file name: ");
+			char fileN[M];
+			scanf("%s", fileN);
+			int n = countRows(fileN);
+			FILE* Dat;
+			Dat = fopen(fileN, "r");
+			if (!Dat)
+				printf("File not opened correctly!");
+			for (i = 0; i < n; i++) {
+				fscanf(Dat, "%s %s %d", firstName, lastName, &year);
+				p = createStudent(firstName, lastName, year);
+				insertStart(&head, p);
+				puts("\n");
+			}
+			printList(&head);
+			break;
 		case 'f':
 		case 'F':
 			printf("\nPlease insert person last name:");
@@ -92,9 +111,9 @@ int main(void)
 		case 'c':
 		case 'C':
 			printf("Insert file name: ");
-			char fileN[M];
-			scanf("%s", fileN);
-			insertList(fileN, &head);
+			char fileNm[M];
+			scanf("%s", fileNm);
+			insertList(fileNm, &head);
 			break;
 		case 'd':
 		case 'D':
@@ -306,12 +325,30 @@ void insertList(char* fileN, Position p) {
 	Dat = fopen(fileN, "w");
 	if (!Dat)
 		printf("Failed to open file!");
+	if (p->next == NULL)
+		fprintf(Dat, "Linked list is empty!");
 	Position q=p->next;
 
 	while (q != NULL) {
 		fprintf(Dat,"%s %s %d\n", q->firstName, q->lastName, q->year);
 		q = q->next;
 	}
+}
+
+int countRows(char* fileName) {
+FILE* Dat;
+Dat = fopen(fileName, "r");
+if (!Dat)
+printf("Krivo otvorena datoteka");
+int n = 0;
+char* buffer = malloc(1024);
+while (1) {
+	if (fgets(buffer, 50, Dat) == '\0')
+		break;
+	n++;
+}
+fclose(Dat);
+return n;
 }
 
 void printList(Position head) {

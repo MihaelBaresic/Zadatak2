@@ -1,9 +1,9 @@
 ﻿  Source.c
-C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(104,19): warning C4133: 'function': incompatible types - from 'char [256]' to 'Position'
-C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(36,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
+C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(123,19): warning C4133: 'function': incompatible types - from 'char [256]' to 'Position'
 C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(37,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
-C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(32,8): warning C4101: 'Dat': unreferenced local variable
-C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(229,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
-C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(242,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
-C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(290,41): warning C4028: formal parameter 1 different from declaration
+C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(38,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
+C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(33,8): warning C4101: 'Dat': unreferenced local variable
+C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(248,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
+C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(261,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
+C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(309,41): warning C4028: formal parameter 1 different from declaration
   Zad2.vcxproj -> C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Debug\Zad2.exe
