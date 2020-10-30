@@ -25,10 +25,11 @@ void insertAfter(Position, Position);
 void insertBefore(Position, Position);
 void Sort(Position);
 int createNode(char*, char*, int);
-
+void insertList(char*, Position);
 
 int main(void)
 {
+	FILE* Dat;
 	char c;
 	Person head;
 	Position p = NULL;
@@ -53,8 +54,8 @@ int main(void)
 	while (1) {
 
 		printf("\n\nMENU:\nChoose one option:\n\tB->insert new person at the beginning of the list\n");
-		printf("\tA->insert new person at the end of the list\n\tF->find a person(by last name)\n\tD->delete a person\n\t");
-		printf("I->insert new person after selected person\n\tU->insert new person before selected person\n\tS->Sort List(by last names)\n");
+		printf("\tA->insert new person at the end of the list\n\tF->find a person(by last name)\n\tD->delete a person\n\tC->Input list to text file");
+		printf("\n\tI->insert new person after selected person\n\tU->insert new person before selected person\n\tS->Sort List(by last names)\n");
 		printf("\tE->if you are done with the selection\n\tOption:\t");
 		scanf(" %c", &c);
 
@@ -79,7 +80,7 @@ int main(void)
 		case 'f':
 		case 'F':
 			printf("\nPlease insert person last name:");
-			scanf(" %s", lastName);
+			scanf("%s", lastName);
 			puts("\n");
 			p = Find(lastName, &head);
 			if (p != NULL)
@@ -87,6 +88,13 @@ int main(void)
 			else
 				printf("Last name not found in linked list!");
 			printList(&head);
+			break;
+		case 'c':
+		case 'C':
+			printf("Insert file name: ");
+			char fileN[M];
+			scanf("%s", fileN);
+			insertList(fileN, &head);
 			break;
 		case 'd':
 		case 'D':
@@ -279,7 +287,6 @@ void Sort(Position where)
 }
 
 
-
 void Delete(char* lastName, Position P) {
 	Position prev;
 	prev = findPrev(lastName, P);
@@ -292,6 +299,19 @@ void Delete(char* lastName, Position P) {
 	}
 	else
 		printf("Last name not found in linked list!");
+}
+
+void insertList(char* fileN, Position p) {
+	FILE* Dat;
+	Dat = fopen(fileN, "w");
+	if (!Dat)
+		printf("Failed to open file!");
+	Position q=p->next;
+
+	while (q != NULL) {
+		fprintf(Dat,"%s %s %d\n", q->firstName, q->lastName, q->year);
+		q = q->next;
+	}
 }
 
 void printList(Position head) {
