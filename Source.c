@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//TODO : NAPRAVI F-ju IME PREZIME CreateNode();
 #define M (256)
 
 struct _person;
@@ -25,6 +24,7 @@ Position findPrev(char*, Position);
 void insertAfter(Position, Position);
 void insertBefore(Position, Position);
 void Sort(Position);
+int createNode(char*, char*, int);
 
 
 int main(void)
@@ -34,7 +34,7 @@ int main(void)
 	Position p = NULL;
 	char firstName[M] = { NULL };
 	char lastName[M] = { NULL };
-	int year = NULL;
+	int year=0;
 	head.next = NULL;
 	int i, n;
 
@@ -43,17 +43,7 @@ int main(void)
 
 	for (i = 0; i < n; i++)
 	{
-		printf("\nPlease insert person:\n");
-
-		printf("First name:\t");
-		scanf(" %s", firstName);
-
-		printf("Last name:\t");
-		scanf(" %s", lastName);
-
-		printf("Birth year:\t");
-		scanf(" %d", &year);
-
+		year=createNode(firstName, lastName, year);
 		p = createStudent(firstName, lastName, year);
 		insertStart(&head, p);
 		puts("\n");
@@ -72,17 +62,7 @@ int main(void)
 		{
 		case 'b':
 		case 'B':
-			printf("\nPlease insert person:\n");
-
-			printf("First name:\t");
-			scanf(" %s", firstName);
-
-			printf("Last name:\t");
-			scanf(" %s", lastName);
-
-			printf("Birth year:\t");
-			scanf(" %d", &year);
-
+			year = createNode(firstName, lastName, year);
 			p = createStudent(firstName, lastName, year);
 			insertStart(&head, p);
 			puts("\n");
@@ -90,17 +70,7 @@ int main(void)
 			break;
 		case 'a':
 		case 'A':
-			printf("\nPlease insert person:\n");
-
-			printf("First name:\t");
-			scanf(" %s", firstName);
-
-			printf("Last name:\t");
-			scanf(" %s", lastName);
-
-			printf("Birth year:\t");
-			scanf(" %d", &year);
-
+			year = createNode(firstName, lastName, year);
 			p = createStudent(firstName, lastName, year);
 			insertEnd(&head, p);
 			puts("\n");
@@ -133,36 +103,16 @@ int main(void)
 			break;
 		case 'I':
 		case 'i':
-			printf("\nPlease insert person:\n");
-
-			printf("First name:\t");
-			scanf(" %s", firstName);
-
-			printf("Last name:\t");
-			scanf(" %s", lastName);
-
-			printf("Birth year:\t");
-			scanf(" %d", &year);
-
+			year = createNode(firstName, lastName, year);
 			p = createStudent(firstName, lastName, year);
 			insertAfter(&head, p);
 			puts("\n");
 			printList(&head);
-			
+
 			break;
 		case 'U':
 		case 'u':
-			printf("\nPlease insert person:\n");
-
-			printf("First name:\t");
-			scanf(" %s", firstName);
-
-			printf("Last name:\t");
-			scanf(" %s", lastName);
-
-			printf("Birth year:\t");
-			scanf(" %d", &year);
-
+			year = createNode(firstName, lastName, year);
 			p = createStudent(firstName, lastName, year);
 			insertBefore(&head, p);
 			puts("\n");
@@ -174,7 +124,7 @@ int main(void)
 			puts("\n");
 			printList(&head);
 			break;
-		
+
 		default:
 			puts("Input error!!");
 		}
@@ -182,7 +132,20 @@ int main(void)
 	return 0;
 }
 
+int createNode(char* firstName, char* lastName, int year) {
+	printf("\nPlease insert person:\n");
 
+	printf("First name:\t");
+	scanf(" %s", firstName);
+
+	printf("Last name:\t");
+	scanf(" %s", lastName);
+
+	printf("Birth year:\t");
+	scanf(" %d", &year);
+	
+	return year;
+}
 
 Position createStudent(char* firstName, char* lastName, int year) {
 	Position p = NULL;
@@ -238,7 +201,7 @@ Position Find(char* lastName, Position head) {
 }
 
 
-Position findPrev(char *lastName, Position P) {
+Position findPrev(char* lastName, Position P) {
 	Position prev = P;
 	P = P->next;
 
@@ -253,8 +216,8 @@ Position findPrev(char *lastName, Position P) {
 }
 
 void insertAfter(Position head, Position p) {
-	Position q=NULL;
-	
+	Position q = NULL;
+
 	char lName[M] = { NULL };
 	printf("\nPlease insert person last name:");
 	scanf("%s", lName);
