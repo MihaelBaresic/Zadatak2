@@ -1,0 +1,7 @@
+﻿  Source.c
+C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(121,19): warning C4133: 'function': incompatible types - from 'char [256]' to 'Position'
+C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(31,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
+C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(32,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
+C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(33,1): warning C4047: 'initializing': 'int' differs in levels of indirection from 'void *'
+C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Source.c(208,41): warning C4028: formal parameter 1 different from declaration
+  Zad2.vcxproj -> C:\Users\Korisnik\Desktop\source\repos\StrukturePodataka\Zad2\Debug\Zad2.exe
