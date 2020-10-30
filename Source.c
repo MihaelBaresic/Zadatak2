@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+//TODO : NAPRAVI F-ju IME PREZIME CreateNode();
 #define M (256)
 
 struct _person;
@@ -15,13 +15,17 @@ typedef struct _person {
 	Position next;
 }Person;
 
-Position createStudent(char* , char* , int);
-void insertStart(Position,Position);
+Position createStudent(char*, char*, int);
+void insertStart(Position, Position);
 void printList(Position);
-void insertEnd(Position ,Position);
+void insertEnd(Position, Position);
 Position Find(char*, Position);
 void Delete(Position, Position);
 Position findPrev(char*, Position);
+void insertAfter(Position, Position);
+void insertBefore(Position, Position);
+void Sort(Position);
+
 
 int main(void)
 {
@@ -33,7 +37,7 @@ int main(void)
 	int year = NULL;
 	head.next = NULL;
 	int i, n;
-	
+
 	printf("\nHow many students do you want to enter:\t");
 	scanf("%d", &n);
 
@@ -59,7 +63,8 @@ int main(void)
 	while (1) {
 
 		printf("\n\nMENU:\nChoose one option:\n\tB->insert new person at the beginning of the list\n");
-		printf("\tA->insert new person at the end of the list\n\tF->find a person(by last name)\n\tD->delete a person\n");
+		printf("\tA->insert new person at the end of the list\n\tF->find a person(by last name)\n\tD->delete a person\n\t");
+		printf("I->insert new person after selected person\n\tU->insert new person before selected person\n\tS->Sort List(by last names)\n");
 		printf("\tE->if you are done with the selection\n\tOption:\t");
 		scanf(" %c", &c);
 
@@ -126,6 +131,50 @@ int main(void)
 			printList(&head);
 			return EXIT_SUCCESS;
 			break;
+		case 'I':
+		case 'i':
+			printf("\nPlease insert person:\n");
+
+			printf("First name:\t");
+			scanf(" %s", firstName);
+
+			printf("Last name:\t");
+			scanf(" %s", lastName);
+
+			printf("Birth year:\t");
+			scanf(" %d", &year);
+
+			p = createStudent(firstName, lastName, year);
+			insertAfter(&head, p);
+			puts("\n");
+			printList(&head);
+			
+			break;
+		case 'U':
+		case 'u':
+			printf("\nPlease insert person:\n");
+
+			printf("First name:\t");
+			scanf(" %s", firstName);
+
+			printf("Last name:\t");
+			scanf(" %s", lastName);
+
+			printf("Birth year:\t");
+			scanf(" %d", &year);
+
+			p = createStudent(firstName, lastName, year);
+			insertBefore(&head, p);
+			puts("\n");
+			printList(&head);
+			break;
+		case 's':
+		case 'S':
+			Sort(&head);
+			puts("\n");
+			printList(&head);
+			break;
+		
 		default:
 			puts("Input error!!");
 		}
@@ -133,7 +182,7 @@ int main(void)
 	return 0;
 }
 
-	
+
 
 Position createStudent(char* firstName, char* lastName, int year) {
 	Position p = NULL;
@@ -154,7 +203,7 @@ Position createStudent(char* firstName, char* lastName, int year) {
 
 }
 
-void insertEnd(Position head,Position p) {
+void insertEnd(Position head, Position p) {
 	while (head->next != NULL) {
 		head = head->next;
 	}
@@ -169,11 +218,11 @@ void insertStart(Position head, Position p) {
 }
 
 Position Find(char* lastName, Position head) {
-	Position p=NULL;
+	Position p = NULL;
 	p = head->next;
-	int L=0;
+	int L = 0;
 
-	while(p != NULL){
+	while (p != NULL) {
 		if (strcmp(p->lastName, lastName) == 0) {
 			L = 1;
 			break;
@@ -193,7 +242,7 @@ Position findPrev(char *lastName, Position P) {
 	Position prev = P;
 	P = P->next;
 
-	while (P != NULL && strcmp(P->lastName,lastName)!=0) {
+	while (P != NULL && strcmp(P->lastName, lastName) != 0) {
 		prev = P;
 		P = P->next;
 	}
@@ -201,6 +250,69 @@ Position findPrev(char *lastName, Position P) {
 		return NULL;
 	else
 		return prev;
+}
+
+void insertAfter(Position head, Position p) {
+	Position q=NULL;
+	
+	char lName[M] = { NULL };
+	printf("\nPlease insert person last name:");
+	scanf("%s", lName);
+	q = Find(lName, head);
+
+	p->next = q->next;
+	q->next = p;
+}
+
+
+void insertBefore(Position head, Position p) {
+	Position q = NULL;
+
+	char lName[M] = { NULL };
+	printf("\nPlease insert person last name:");
+	scanf("%s", lName);
+	q = findPrev(lName, head);
+
+	p->next = q->next;
+	q->next = p;
+
+}
+
+void Sort(Position where)
+{
+	Position end = NULL, temp, what, prev;
+
+	while (where->next != end)
+	{
+		prev = where;
+		what = where->next;
+		while (what->next != end)
+		{
+			if (strcmp(what->lastName, what->next->lastName) > 0)
+			{
+				temp = what->next;
+				prev->next = temp;
+				what->next = temp->next;
+				temp->next = what;
+				what = temp;
+			}
+			else if (strcmp(what->lastName, what->next->lastName) == 0)
+			{
+				if (strcmp(what->firstName, what->next->firstName) > 0)
+				{
+					temp = what->next;
+					prev->next = temp;
+					what->next = temp->next;
+					temp->next = what;
+					what = temp;
+				}
+			}
+
+			prev = what;
+			what = what->next;
+		}
+		end = what;
+	}
 }
 
 
@@ -226,7 +338,7 @@ void printList(Position head) {
 		printf("Linked list is empty!");
 	for (p = head->next; p != NULL; p = p->next)
 		printf("\t%s %s %d\n", p->firstName, p->lastName, p->year);
-	
+
 	printf("\n");
 
 }
