@@ -335,20 +335,21 @@ void insertList(char* fileN, Position p) {
 	}
 }
 
-int countRows(char* fileName) {
-FILE* Dat;
-Dat = fopen(fileName, "r");
-if (!Dat)
-printf("Krivo otvorena datoteka");
-int n = 0;
-char* buffer = malloc(1024);
-while (1) {
-	if (fgets(buffer, 50, Dat) == '\0')
-		break;
-	n++;
-}
-fclose(Dat);
-return n;
+int countRows(char* fileName) 
+{
+	FILE* Dat;
+	Dat = fopen(fileName, "r");
+	if (!Dat)
+	printf("Krivo otvorena datoteka");
+	int n = 0;
+	char* buffer = malloc(1024);
+	while (1) {
+		if (fgets(buffer, 50, Dat) == '\0')
+			break;
+		n++;
+	}
+	fclose(Dat);
+	return n;
 }
 
 void printList(Position head) {
